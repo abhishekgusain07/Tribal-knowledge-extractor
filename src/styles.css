@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&family=Manrope:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-mono: "SF Mono", "Cascadia Code", "Fira Code", "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --ink: #1c1917;
+  --ink-2: #44403c;
+  --ink-3: #78716c;
+  --accent: #3a6b35;
+  --accent-hover: #2e5529;
+  --accent-soft: rgba(58, 107, 53, 0.08);
+  --accent-border: rgba(58, 107, 53, 0.2);
+  --bg: #f5f3ed;
+  --bg-raised: #fdfcf9;
+  --bg-inset: #eceade;
+  --border: rgba(28, 25, 23, 0.08);
+  --border-strong: rgba(28, 25, 23, 0.14);
+  --pill-bg: rgba(58, 107, 53, 0.08);
+  --pill-border: rgba(58, 107, 53, 0.18);
+  --pill-text: #3a6b35;
+}
+
+:root[data-theme="dark"] {
+  --ink: #e7e5e4;
+  --ink-2: #a8a29e;
+  --ink-3: #6b6560;
+  --accent: #7ec699;
+  --accent-hover: #a3d9b5;
+  --accent-soft: rgba(126, 198, 153, 0.06);
+  --accent-border: rgba(126, 198, 153, 0.18);
+  --bg: #0e0d0b;
+  --bg-raised: #1a1918;
+  --bg-inset: #141312;
+  --border: rgba(231, 229, 228, 0.06);
+  --border-strong: rgba(231, 229, 228, 0.12);
+  --pill-bg: rgba(126, 198, 153, 0.08);
+  --pill-border: rgba(126, 198, 153, 0.2);
+  --pill-text: #7ec699;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e7e5e4;
+    --ink-2: #a8a29e;
+    --ink-3: #6b6560;
+    --accent: #7ec699;
+    --accent-hover: #a3d9b5;
+    --accent-soft: rgba(126, 198, 153, 0.06);
+    --accent-border: rgba(126, 198, 153, 0.18);
+    --bg: #0e0d0b;
+    --bg-raised: #1a1918;
+    --bg-inset: #141312;
+    --border: rgba(231, 229, 228, 0.06);
+    --border-strong: rgba(231, 229, 228, 0.12);
+    --pill-bg: rgba(126, 198, 153, 0.08);
+    --pill-border: rgba(126, 198, 153, 0.2);
+    --pill-text: #7ec699;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page-wrap {
+  width: min(960px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-color: var(--accent-border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+a:hover {
+  color: var(--accent-hover);
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-inset);
+  border-radius: 5px;
+  padding: 1px 6px;
+}
+
+.rise-in {
+  animation: rise-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
