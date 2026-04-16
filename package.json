@@ -10,8 +10,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "backend": "cd backend && uv run tribal-knowledge",
-    "backend:test": "cd backend && uv run pytest",
+    "backend": "cd backend && uv run --env-file .env tribal-knowledge",
+    "backend:test": "cd backend && uv run --env-file .env pytest",
     "backend:setup": "cd backend && uv sync"
   },
   "dependencies": {

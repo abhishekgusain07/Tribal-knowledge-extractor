@@ -7,9 +7,6 @@ CONVENTIONS.md, AGENTS.md, and dependency-index.md.
 
 from __future__ import annotations
 
-import os
-
-from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from tribal_knowledge.models import GraphAnalysis, ModuleDependency
@@ -29,22 +26,17 @@ from tribal_knowledge.pipeline.state import PipelineState
 
 
 def _has_api_key() -> bool:
-    """Return True if an Anthropic API key is available."""
-    return bool(os.environ.get("ANTHROPIC_API_KEY", ""))
+    """Return True if a supported LLM API key is available."""
+    from tribal_knowledge.pipeline.llm import has_llm_key
 
-
-def _get_llm() -> ChatAnthropic:
-    """Build a ChatAnthropic instance pointing at Claude Sonnet."""
-    return ChatAnthropic(
-        model="claude-sonnet-4-20250514",
-        temperature=0,
-        max_tokens=1500,
-    )
+    return has_llm_key()
 
 
 def _call_llm(system_prompt: str, user_content: str) -> str:
     """Invoke the LLM and return the response text."""
-    llm = _get_llm()
+    from tribal_knowledge.pipeline.llm import get_llm
+
+    llm = get_llm(temperature=0, max_tokens=1500)
     response = llm.invoke(
         [
             SystemMessage(content=system_prompt),

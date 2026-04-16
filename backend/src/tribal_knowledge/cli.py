@@ -861,13 +861,21 @@ def run(
     console.print("[bold blue]Step 1/3:[/bold blue] Parsing repository...")
     parse(source=source, output=output, branch=branch, languages=languages)
 
+    # Resolve local path for GitHub URLs (parse clones to ~/.tribal-knowledge/cache/)
+    local_source = source
+    if source.strip().startswith(("https://", "http://", "git@")):
+        from tribal_knowledge.ingestion import CACHE_DIR, _parse_github_url
+
+        owner, repo_name = _parse_github_url(source.strip())
+        local_source = str(CACHE_DIR / f"{owner}_{repo_name}")
+
     console.print("\n[bold blue]Step 2/3:[/bold blue] Generating context files...")
-    generate(source=source, output=output)
+    generate(source=local_source, output=output)
 
     if not skip_evaluate:
         console.print("\n[bold blue]Step 3/3:[/bold blue] Evaluating generated docs...")
         context_dir = str(Path(output) / "context")
-        evaluate(context=context_dir, output_dir=output, repo=source, use_llm=False)
+        evaluate(context=context_dir, output_dir=output, repo=local_source, use_llm=False)
     else:
         console.print("\n[bold blue]Step 3/3:[/bold blue] Skipped evaluation (--skip-evaluate)")
 

@@ -1,0 +1,62 @@
+{
+  "documents": [
+    {
+      "name": "backend-server.md",
+      "score": 0.0,
+      "iterations": 1,
+      "tokens_used": 0
+    },
+    {
+      "name": "cicd-pipelines.md",
+      "score": 0.0,
+      "iterations": 1,
+      "tokens_used": 0
+    },
+    {
+      "name": "desktop-application.md",
+      "score": 0.0,
+      "iterations": 1,
+      "tokens_used": 0
+    },
+    {
+      "name": "marketing-website.md",
+      "score": 0.0,
+      "iterations": 1,
+      "tokens_used": 0
+    },
+    {
+      "name": "web-frontend.md",
+      "score": 0.0,
+      "iterations": 1,
+      "tokens_used": 0
+    },
+    {
+      "name": "OVERVIEW.md",
+      "score": 1.0,
+      "iterations": 1,
+      "tokens_used": 312
+    },
+    {
+      "name": "CONVENTIONS.md",
+      "score": 1.0,
+      "iterations": 1,
+      "tokens_used": 350
+    },
+    {
+      "name": "AGENTS.md",
+      "score": 1.0,
+      "iterations": 1,
+      "tokens_used": 378
+    },
+    {
+      "name": "dependency-index.md",
+      "score": 1.0,
+      "iterations": 1,
+      "tokens_used": 27
+    }
+  ],
+  "total_cost": 0.0,
+  "total_tokens": 0,
+  "total_time_seconds": 0.0,
+  "average_score": 1.0
+}

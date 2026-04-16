@@ -114,13 +114,9 @@ def writer_node(state: PipelineState) -> dict[str, object]:
 
     # 4. Call LLM
     try:
-        from langchain_anthropic import ChatAnthropic
+        from tribal_knowledge.pipeline.llm import get_llm
 
-        llm = ChatAnthropic(
-            model="claude-sonnet-4-6-20250514",
-            temperature=0.3,
-            max_tokens=2048,
-        )
+        llm = get_llm(temperature=0.3, max_tokens=2048)
         messages = [
             SystemMessage(content=WRITER_SYSTEM_PROMPT),
             HumanMessage(content=human_text),

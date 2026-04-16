@@ -8,8 +8,6 @@ on four dimensions: accuracy, coverage, conciseness, and usefulness.
 
 from __future__ import annotations
 
-import os
-
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from tribal_knowledge.pipeline.helpers import (
@@ -171,8 +169,9 @@ def critic_node(state: PipelineState) -> dict[str, object]:
     previous_score: float = state.get("score", 0.0)
 
     # 7. Decide: LLM critique vs programmatic fallback
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-    if not api_key:
+    from tribal_knowledge.pipeline.llm import has_llm_key
+
+    if not has_llm_key():
         # ── Programmatic fallback ────────────────────────────────────
         result = _programmatic_critique(current_draft, findings, top_entities)
         return {
@@ -182,14 +181,9 @@ def critic_node(state: PipelineState) -> dict[str, object]:
         }
 
     # ── LLM-based critique ───────────────────────────────────────────
-    from langchain_anthropic import ChatAnthropic
+    from tribal_knowledge.pipeline.llm import get_structured_llm
 
-    llm = ChatAnthropic(
-        model="claude-sonnet-4-6-20250514",
-        temperature=0,
-        max_tokens=2048,
-    )
-    structured_llm = llm.with_structured_output(CritiqueResult)
+    structured_llm = get_structured_llm(CritiqueResult, temperature=0, max_tokens=2048)
 
     # Format analyst findings as ground truth
     analyst_summary_parts: list[str] = []

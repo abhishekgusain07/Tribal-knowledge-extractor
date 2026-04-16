@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import os
-
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from tribal_knowledge.pipeline.helpers import (
@@ -73,8 +71,9 @@ def analyst_node(state: PipelineState) -> dict[str, object]:
     )
 
     # ── Call the LLM (or fall back if no API key) ───────────────────
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-    if not api_key:
+    from tribal_knowledge.pipeline.llm import has_llm_key
+
+    if not has_llm_key():
         print(
             f"[analyst] WARNING: ANTHROPIC_API_KEY not set — "
             f"generating basic AnalystFindings for '{module_name}' without LLM."
@@ -151,14 +150,9 @@ Analyse the module **{module_name}**.
 
 def _call_llm(user_prompt: str) -> AnalystFindings:
     """Invoke Claude Sonnet with structured output."""
-    from langchain_anthropic import ChatAnthropic
+    from tribal_knowledge.pipeline.llm import get_structured_llm
 
-    llm = ChatAnthropic(
-        model="claude-sonnet-4-6-20250514",
-        temperature=0,
-        max_tokens=4096,
-    )
-    structured_llm = llm.with_structured_output(AnalystFindings)
+    structured_llm = get_structured_llm(AnalystFindings, temperature=0, max_tokens=4096)
 
     messages = [
         SystemMessage(content=ANALYST_SYSTEM_PROMPT),
