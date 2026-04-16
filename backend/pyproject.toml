@@ -1,0 +1,56 @@
+[project]
+name = "tribal-knowledge"
+version = "0.1.0"
+description = "Extract tribal knowledge from any codebase — generates compass context files for AI tools and humans"
+requires-python = ">= 3.12"
+readme = "README.md"
+
+dependencies = [
+    "tree-sitter >= 0.25",
+    "tree-sitter-language-pack",
+    "networkx >= 3.4",
+    "gitpython",
+    "pathspec",
+    "voyageai",
+    "chromadb >= 1.0",
+    "pydantic >= 2.0",
+    "tiktoken",
+    "typer",
+    "rich",
+    "langgraph >= 1.1",
+    "langchain-anthropic",
+    "langchain-google-genai",
+    "langchain-core",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+    "mypy",
+]
+
+[project.scripts]
+tribal-knowledge = "tribal_knowledge.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tribal_knowledge"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true

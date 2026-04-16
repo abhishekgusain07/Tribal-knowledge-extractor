@@ -9,7 +9,10 @@
     "dev": "vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "backend": "cd backend && uv run tribal-knowledge",
+    "backend:test": "cd backend && uv run pytest",
+    "backend:setup": "cd backend && uv sync"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -34,6 +37,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.2.1",
     "jsdom": "^28.1.0",
     "typescript": "^5.7.2",
     "vite": "^8.0.0",
